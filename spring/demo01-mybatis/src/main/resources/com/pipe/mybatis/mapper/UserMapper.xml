@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pipe.mybatis.mapper.UserMapper">
+    <!--别名，列名和属性名映射-->
+    <resultMap id="userResultMap" type="com.pipe.mybatis.pojo.User">
+        <result column="first_name" property="username"></result>
+    </resultMap>
+
+
+
+    <select id="selectall" resultMap="userResultMap">
+        select first_name, salary from employees;
+    </select>
+
+    <select id="selectById" resultMap="userResultMap">
+        select first_name, salary from employees where employee_id = #{id};
+    </select>
+
+    <!--动态查询-->
+    <select id="selectByCondition" resultMap="userResultMap">
+        select first_name, salary from employees
+        where 1 = 1
+        <if test="id != null">
+            and employee_id = #{id}
+        </if>
+        <if test="firstName != null and firstName != '' ">
+            and first_name = #{firstName};
+        </if>
+    </select>
+
+    <!--动态单条件-->
+    <select id="selectByConditionSingle" resultMap="userResultMap">
+        select first_name, salary from employees
+        where
+        <choose>
+            <when test="id != null">
+                employee_id = #{id}
+            </when>
+            <when test="firstName != null and firstName != '' ">
+                first_name = #{firstName};
+            </when>
+            <otherwise>
+                1 = 1
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--获取主键-->
+<!--    <insert id="add" useGeneratedKeys="true" keyProperty="id">-->
+    <insert id="add">
+        insert into countries(country_id, country_name, region_id)
+        values (#{countryId}, #{countryName}, #{regionId})
+    </insert>
+
+    <update id="update">
+        update countries
+        set country_name = 'New York'
+        where country_id = #{countryId}
+    </update>
+
+    <delete id="deleteByCountryId">
+        delete from countries
+        where country_id = #{countryId}
+    </delete>
+
+    <delete id="deleteByCountryIds">
+        delete from countries
+        where country_id in
+        <foreach collection="countryIds" item="countryId" separator="," open="(" close=")">
+            #{countryId}
+        </foreach>
+    </delete>
+
+
+</mapper>

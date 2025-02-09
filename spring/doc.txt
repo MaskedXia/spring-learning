@@ -1,0 +1,124 @@
+core container
+    Beans Core Context SpEL
+
+AOP Aspect Instrumentation Messaging
+
+Data Access/Integration
+    JDBC ORM OXM JMS Transaction
+
+Web
+    WebSocket Serlet Web Portlet
+
+Test
+
+
+
+
+IOC 控制反转
+    对象的创建控制权转移到到外部，降低耦合
+    IOC容器的对象就是bean
+DI 依赖注入
+    在容器中建立bean和bean的依赖关系
+
+BeanFactory 顶层接口
+ApplicationContext 核心接口，初始化bean立即加载
+    ClassPathXmlApplicationContext
+    FileSystemXmlApplicationContext
+
+<bean
+    id="user"   id
+    name="user" 别名
+    class="com.pipe.bean.User"  类型
+    scope="singleton"   实例数量
+    init-method="init"  初始化方法
+    detroy-method="detroy"  销毁方法
+    autowire="byType"   自动装配
+    fatory-method="getIns"  工厂方法        implements FactoryBean<User>替代
+    fatory-bean="com.pipe.bean.UserFactory" 工厂bean
+    lazay-init="true"   bean延迟加载
+>
+依赖注入
+<constructor-arg name="username" value="pipe">
+<property name="username" value="pipe">
+<property name="user" ref=User>
+</bean>
+
+
+
+
+注解开发
+
+定义bean
+@Component 3个衍生注解，功能相同
+    @Repository 数据层
+    @Service    业务层
+    @Controller 表现层
+
+    <context:component-scan base-package="com.pipe.spring6"></context:component-scan>
+
+识别bean（纯注解）
+@Configuration
+@ComponentScan("com.pipe.spring6")  or @Import(JdbcConfig.class)
+    作用范围
+        @Scope
+    生命周期
+        @PostConstruct
+        @PreDestroy
+
+
+依赖注入
+    引用类型
+        @Autowired
+        @Qualifier(value = "userRedisDaoImpl")  指定注入具体是哪个
+
+    简单类型
+        @Value("100")
+
+    外部文件
+        @PropertySource("jdbc.properties")
+        +
+        @Value("${name}")
+
+    第三方bean管理
+        @Bean  重要
+
+
+
+AOP 面向切面编程
+扫描
+@Configuration
+@ComponentScan("com.pipe.spring6.aop.annoaop")  // 扫描指定包下面的类，并将其注册为 Spring Bean
+@EnableAspectJAutoProxy
++
+@Aspect  // 切面类
+@Component //ioc容器
+..
+    @Pointcut(value = "execution(public int com.pipe.spring6.aop.annoaop.CalculatorImpl.*(..))")    *单个任意  ..多个任意
+    @After(value = "pointcut()")  // *通配，..任意参数
+
+
+
+
+spring 事务  在数据层或者业务层保障一系列数据库操作成功失败
+    业务层接口添加事务管理
+    @Transactional
+    设置事务管理器
+    public DataSourceTransactionManager getDataSourceTransactionManager(DataSource dataSource) {
+    开启注解式事务驱动
+    @EnableTransactionManagement
+
+    事务管理员
+    事务协调员
+
+    多个@Transactional会加入到原始的开启事务
+    事务传播行为：propagation = Propagation.REQUIRES_NEW 新的事务，不会加入
+
+
+Mybatis
+    MybatisX 插件
+    #{} 和 ${} 的区别 ： ${} 存在sql注入
+
+    特殊字符：CDATA 或转义 < &lt;
+
+MybatisPlus
+    增强型框架

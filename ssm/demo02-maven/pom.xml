@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.pipe</groupId>
+    <artifactId>demo02-maven</artifactId>
+    <!--SNAPSHOT快照版本-->
+    <version>1.0-SNAPSHOT</version>
+    <!--聚合工程 管理其他子模块依赖关系，整体打包-->
+    <packaging>pom</packaging>
+    <!--包含多个子模块-->
+    <modules>
+        <module>../demo01-ssm</module>
+    </modules>
+
+
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <!--属性管理-->
+        <log4j.version>1.2.17</log4j.version>
+    </properties>
+
+    <!--父工程管理版本 可选-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--父工程管理版本 必选-->
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-classic</artifactId>-->
+<!--            <version>1.2.3</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>pipe.com.ssm</groupId>-->
+<!--            <artifactId>demo01-ssm</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--            &lt;!&ndash;可选依赖 对外隐藏当前的依赖 true&ndash;&gt;-->
+<!--            <optional>false</optional>-->
+<!--            &lt;!&ndash;排除依赖 主动断开依赖&ndash;&gt;-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>log4j</groupId>-->
+<!--                    <artifactId>log4j</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+    <!--多环境开发-->
+    <profiles>
+        <profile>
+            <id>PROD</id>
+            <properties/>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>DEV</id>
+            <properties/>
+        </profile>
+    </profiles>
+
+    <!--nexus 私服
+    nexus.exe /run nexus
+    http://localhost:8081/
+    注册 sonatype-work\nexus3 密码
+        宿主仓库 hosted 自主
+        代理仓库 proxy 中央
+        仓库组 group 编组
+
+     maven setting
+     <server>
+      <id>pipe-Snapshot</id>
+      <username>admin</username>
+      <password>admin</password>
+    </server>
+	<server>
+      <id>pipe-Release</id>
+      <username>admin</username>
+      <password>admin</password>
+    </server>
+    	<mirror>
+  	    <id>maven-public</id>
+  		<mirrorOf>*</mirrorOf>
+  		<url>http://localhost:8081/repository/maven-public/</url>
+  	</mirror>
+
+  	配置distributionManagement，就可以上传到nexus私服仓库
+    -->
+    <distributionManagement>
+        <repository>
+            <id>pipe-Release</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>pipe-Snapshot</id>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

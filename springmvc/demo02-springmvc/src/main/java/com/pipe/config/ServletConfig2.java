@@ -1,0 +1,21 @@
+//package com.pipe.config;
+//
+//import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+//
+////另一种简便方式
+//public class ServletConfig2 extends AbstractAnnotationConfigDispatcherServletInitializer {
+//    @Override
+//    protected Class<?>[] getRootConfigClasses() {
+//        return new Class[]{SpringMVCConfig.class};
+//    }
+//
+//    @Override
+//    protected Class<?>[] getServletConfigClasses() {
+//        return new Class[]{SpringConfig.class};
+//    }
+//
+//    @Override
+//    protected String[] getServletMappings() {
+//        return new String[]{"/"};
+//    }
+//}

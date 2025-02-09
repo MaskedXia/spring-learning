@@ -1,0 +1,13 @@
+Mybatis
+    持久层框架
+
+JavaEE 三层框架：表现层 业务层 持久层
+
+SSM
+    异常处理
+        @RestControllerAdvice
+        +
+        @ExceptionHandler(Exception.class)  处理不同类型异常
+
+    拦截器 interceptor SpringMVC
+    过滤器 Filter  Servlet

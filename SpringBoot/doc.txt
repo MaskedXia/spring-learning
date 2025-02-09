@@ -1,0 +1,24 @@
+SpringBoot
+    简化Spring应用
+
+配置文件
+    application.properties
+    application.yml [常用] YAML Ain't Markup Language 序列化格式
+    application.yaml
+
+    java -jar **.jar --spring.profiles.active=dev  --server.port=80  临时参数，优先级高
+
+    maven: clean -> package
+
+@SpringBootTest 整合junit
+
+@Mapper + application.yml 整合mybatis （创建增加mybatis+mysql的maven依赖）切换数据源更快druid（连接池）
+
+@Mapper + application.yml + static页面相关 整合ssm （不需要config）
+
+MyBatisPlus
+    导入依赖库
+    @Mapper
+    public interface CountryDao extends BaseMapper<Countries> {}
+
+

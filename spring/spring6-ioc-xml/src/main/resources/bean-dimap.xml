@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="student2" class="com.pipe.spring6.iocxml.dimap.Student2">
+          <property name="arrays">
+              <array>
+                  <value>1</value>
+                  <value>2</value>
+                  <value>3</value>
+              </array>
+          </property>
+
+        <property name="list">
+            <list>
+                <value>a</value>
+                <value>b</value>
+                <value>c</value>
+            </list>
+        </property>
+
+        <property name="set">
+            <set>
+                <value>xx</value>
+                <value>yy</value>
+                <value>zz</value>
+            </set>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="a" value="aaaa"></entry>
+                <entry key="b" value="bbbb"></entry>
+                <entry key="v" value="vvvv"></entry>
+            </map>
+        </property>
+    </bean>
+
+
+
+    <!--另一种方式-->
+    <bean id="studentp" class="com.pipe.spring6.iocxml.dimap.Student"
+        p:sage="100" p:sname="pipe" p:lessonList-ref="lessonListx" p:teacherMap-ref="teacherMapx">
+    </bean>
+
+
+    <bean id="lesson" class="com.pipe.spring6.iocxml.dimap.Lesson">
+        <property name="lessName" value="java" />
+    </bean>
+
+    <bean id="lesson2" class="com.pipe.spring6.iocxml.dimap.Lesson">
+        <property name="lessName" value="c++" />
+    </bean>
+
+    <bean id="teacher" class="com.pipe.spring6.iocxml.dimap.Teacher">
+        <property name="tage" value="100" />
+        <property name="tname" value="te1" />
+    </bean>
+
+    <bean id="teacher2" class="com.pipe.spring6.iocxml.dimap.Teacher">
+        <property name="tage" value="200" />
+        <property name="tname" value="te2" />
+    </bean>
+
+    <util:list id="lessonListx">
+        <ref bean="lesson"></ref>
+        <ref bean="lesson2"></ref>
+    </util:list>
+
+    <util:map id="teacherMapx">
+        <entry>
+            <key>
+                <value>10001</value>
+            </key>
+            <ref bean="teacher"></ref>
+        </entry>
+        <entry>
+            <key>
+                <value>10002</value>
+            </key>
+            <ref bean="teacher2"></ref>
+        </entry>
+    </util:map>
+
+
+    <bean id="student" class="com.pipe.spring6.iocxml.dimap.Student">
+        <property name="sage" value="10" />
+        <property name="sname" value="su1" />
+        <property name="lessonList" ref="lessonListx"></property>
+        <property name="teacherMap" ref="teacherMapx"></property>
+    </bean>
+</beans>

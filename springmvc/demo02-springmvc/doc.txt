@@ -1,0 +1,39 @@
+SpringMVC
+    @Controller
+    @RequestMapping("/save")
+    @ResponseBody
+    +
+    config配置
+
+    @RequestParam 请求参数 别名
+
+    @EnableWebMvc + @RequestBody json格式支持
+
+    @DateTimeFormat 日期支持
+
+Web容器 -> ServletContext -> WebApplicationContext -> controller -> /save
+
+测试工具
+Postman
+Apifox
+
+REST representational State Transfer 表现形式状态转换
+隐藏资源访问行为
+简洁
+RESTful REST风格访问
+
+GET 查询
+POST 新增、保存
+PUT 修改、更新
+DELETE 删除
+
+@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+@PathVariable Integer id 接收路径参数
+
+@RestController = //@Controller
+                  //@ResponseBody
+
+@GetMapping = @RequestMapping(method = RequestMethod.GET)
+@PostMapping = @RequestMapping(method = RequestMethod.POST)
+...
+

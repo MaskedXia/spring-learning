@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    &lt;!&ndash;1 引入外部bean&ndash;&gt;-->
+<!--    <bean id="deptx" class="com.pipe.spring6.iocxml.ditest.Dept">-->
+<!--        <property name="deptName" value="安保部" />-->
+<!--    </bean>-->
+
+<!--    <bean id="emp" class="com.pipe.spring6.iocxml.ditest.Emp">-->
+<!--        <property name="ename" value="pipe" />-->
+<!--        <property name="age" value="18" />-->
+<!--        &lt;!&ndash;注入对象属性&ndash;&gt;-->
+<!--        <property name="dept" ref="deptx" />-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;2 内部bean&ndash;&gt;-->
+<!--    <bean id="emp2" class="com.pipe.spring6.iocxml.ditest.Emp">-->
+<!--        <property name="ename" value="pipe" />-->
+<!--        <property name="age" value="28" />-->
+<!--        &lt;!&ndash;注入对象属性&ndash;&gt;-->
+<!--        <property name="dept">-->
+<!--            <bean id="depty" class="com.pipe.spring6.iocxml.ditest.Dept">-->
+<!--                <property name="deptName" value="财务部" />-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;3 级联赋值&ndash;&gt;-->
+<!--    <bean id="deptz" class="com.pipe.spring6.iocxml.ditest.Dept">-->
+<!--        <property name="deptName" value="财务部" />-->
+<!--    </bean>-->
+<!--    <bean id="emp3" class="com.pipe.spring6.iocxml.ditest.Emp">-->
+<!--        <property name="ename" value="pipe" />-->
+<!--        <property name="age" value="38" />-->
+<!--        <property name="dept" ref="deptz" />-->
+<!--        <property name="dept.deptName" value="测试部" ></property>-->
+<!--    </bean>-->
+        <bean id="deptx" class="com.pipe.spring6.iocxml.ditest.Dept">
+            <property name="deptName" value="安保部" />
+            <property name="empList">
+                <list>
+                    <ref bean="emp"></ref>
+                    <ref bean="emp2"></ref>
+                </list>
+            </property>
+        </bean>
+
+        <bean id="emp" class="com.pipe.spring6.iocxml.ditest.Emp">
+            <property name="ename" value="pipe" />
+            <property name="age" value="18" />
+        </bean>
+
+        <bean id="emp2" class="com.pipe.spring6.iocxml.ditest.Emp">
+            <property name="ename" value="pipe" />
+            <property name="age" value="28" />
+        </bean>
+
+
+
+</beans>
